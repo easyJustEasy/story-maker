@@ -3,12 +3,15 @@ package org.example.base;
 
 import com.alibaba.dashscope.audio.ttsv2.SpeechSynthesisParam;
 import com.alibaba.dashscope.audio.ttsv2.SpeechSynthesizer;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-
+@Service
+@Slf4j
 public class VoiceGenerate {
     private static String model = "cosyvoice-v1";
     private static String voice = "longyue";
