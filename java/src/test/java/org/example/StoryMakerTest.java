@@ -23,7 +23,7 @@ public class StoryMakerTest {
 
     @Test
     public void test() throws Exception {
-        String prompt = "请生成一个关于植物大战僵尸的故事大纲";
+        String prompt = "请生成一个关于植物大战僵尸的故事";
         File touch = FileUtil.touch(AppConfig.tempDir() + File.separator + "story.txt");
         storyMaker.generate(prompt, touch);
     }

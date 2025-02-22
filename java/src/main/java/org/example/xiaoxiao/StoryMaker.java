@@ -2,6 +2,7 @@ package org.example.xiaoxiao;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.*;
 
 @Component
 @Slf4j
@@ -99,27 +101,34 @@ public class StoryMaker {
     }
 
     public void genrateEveryStoryAudio(String storyPath) {
-        for (File file : Objects.requireNonNull(new File(storyPath).listFiles())) {
+        File[] files = Objects.requireNonNull(new File(storyPath).listFiles());
+        for (File file :files ) {
+
             String s = FileUtil.readString(file, StandardCharsets.UTF_8);
             String s1 = file.getName().replaceAll(".txt", "");
             String audioPath = file.getParentFile().getAbsolutePath() + File.separator + s1 + ".wav";
             if (FileUtil.exist(audioPath)) {
                 return;
             }
-            try {
-                localVoiceGenerate.generate(s, audioPath);
-            } catch (Exception e) {
                 try {
                     localVoiceGenerate.generate(s, audioPath);
-                } catch (Exception ex) {
+                } catch (Exception e) {
                     try {
                         localVoiceGenerate.generate(s, audioPath);
-                    } catch (Exception exc) {
-                        throw new RuntimeException(exc);
+                    } catch (Exception ex) {
+                        try {
+                            localVoiceGenerate.generate(s, audioPath);
+                        } catch (Exception exc) {
+                            throw new RuntimeException(exc);
+                        }
                     }
                 }
-            }
+
+
         }
+
+
+
     }
 
     public static String generate(String desc, String prompt) throws Exception {
