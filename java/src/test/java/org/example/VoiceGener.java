@@ -1,11 +1,9 @@
 package org.example;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.example.base.AppConfig;
+import org.example.base.FfmpegVoiceMerager;
 import org.example.base.RunPythonScript;
-import org.example.base.VoiceGenerate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,11 +15,16 @@ import java.io.*;
 public class VoiceGener {
     @Autowired
     private RunPythonScript runPythonScript;
+    @Autowired
+    private FfmpegVoiceMerager voiceMerager;
 
     @Test
     public void test() throws Exception {
         String prompt = "请生成一个关于植物大战僵尸的故事大纲";
-        runPythonScript.runPython(prompt);
+        File file = runPythonScript.runPython(prompt);
+        String name = "植物大战僵尸";
+        String path = AppConfig.tempDir()+File.separator+ "gushi"+File.separator+name+".wav";
+        voiceMerager.concat(file.getAbsolutePath(), path);
 
     }
 }

@@ -5,19 +5,24 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.example.base.AppConfig;
+import org.example.base.LocalVoiceGenerate;
 import org.example.base.TongYiDocGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 @Component
 @Slf4j
 public class StoryMaker {
     @Autowired
     private TongYiDocGenerate docGenerate;
+    @Autowired
+    private LocalVoiceGenerate localVoiceGenerate;
     private static final String SYSTEM_MESSAGE = """
             # 角色
             你是一位富有创意的儿童故事作家，擅长创作充满奇思妙想和科学元素的故事。你的角色是用生动有趣的方式激发孩子们的好奇心和创造力。
@@ -71,26 +76,98 @@ public class StoryMaker {
                
                         
             """;
+    private static final String everyStoryPromt = """
+            故事概述：%s
+            目标：根据故事小节描述，写一篇1300字左右的小故事，要求不能脱离整体故事概述的人物设定、故事情节。
+            """;
 
-    public void generate(String prompt) {
-        File touch = FileUtil.touch(AppConfig.tempDir() + File.separator + "story.txt");
+    public void generate(String prompt, File touch) {
         String s = FileUtil.readString(touch, StandardCharsets.UTF_8);
-        if (StrUtil.isBlankIfStr(s)) {
+        if (StrUtil.isNotBlank(s)) {
+            continueWrite(s, prompt, touch);
 
-           continueWrite(s,prompt,touch);
-        }else{
+        } else {
             String generate = generateWithRetry(prompt);
             FileUtil.appendString(generate, touch, StandardCharsets.UTF_8);
-            for (int i = 0; i < 3; i++) {
-              continueWrite(FileUtil.readString(touch, StandardCharsets.UTF_8),prompt,touch);
+            continueWrite(FileUtil.readString(touch, StandardCharsets.UTF_8), prompt, touch);
+        }
+        String storyPath = FileUtil.mkdir(touch.getParentFile().getAbsolutePath() + File.separator + "gushi").getAbsolutePath();
+        generateEverySory(FileUtil.readString(touch, StandardCharsets.UTF_8), storyPath);
+        genrateEveryStoryAudio(storyPath);
+
+
+    }
+
+    public void genrateEveryStoryAudio(String storyPath) {
+        for (File file : Objects.requireNonNull(new File(storyPath).listFiles())) {
+            String s = FileUtil.readString(file, StandardCharsets.UTF_8);
+            String s1 = file.getName().replaceAll(".txt", "");
+            String audioPath = file.getParentFile().getAbsolutePath() + File.separator + s1 + ".wav";
+            if (FileUtil.exist(audioPath)) {
+                return;
+            }
+            try {
+                localVoiceGenerate.generate(s, audioPath);
+            } catch (Exception e) {
+                try {
+                    localVoiceGenerate.generate(s, audioPath);
+                } catch (Exception ex) {
+                    try {
+                        localVoiceGenerate.generate(s, audioPath);
+                    } catch (Exception exc) {
+                        throw new RuntimeException(exc);
+                    }
+                }
             }
         }
+    }
 
+    public static String generate(String desc, String prompt) throws Exception {
+
+        TongYiDocGenerate tongYiDocGenerate = new TongYiDocGenerate();
+        return tongYiDocGenerate.generate(String.format(everyStoryPromt, desc), "请根据故事小节生成故事内容," + prompt);
+    }
+
+    private void generateEverySory(String s, String parentDir) {
+        List<String> split = split(s);
+        String desc = split.get(0);
+        for (int i = 1; i < split.size(); i++) {
+            String t = split.get(i);
+            if (StrUtil.isBlankIfStr(t)) {
+                continue;
+            }
+            String[] lines = t.split("[\\r\\n]+");
+            List<String> list = Arrays.stream(lines).filter(StrUtil::isNotBlank).toList();
+            System.out.println(list.get(0));
+            File f = new File(parentDir + File.separator + list.get(0) + ".txt");
+            if (f.exists()) {
+                continue;
+            }
+            FileUtil.touch(f);
+            String generate = null;
+            try {
+                ThreadUtil.safeSleep(1000);
+                generate = generate(desc, t);
+            } catch (Exception e) {
+                try {
+                    ThreadUtil.safeSleep(1000);
+                    generate = generate(desc, t);
+                } catch (Exception ex) {
+                    try {
+                        ThreadUtil.safeSleep(1000);
+                        generate = generate(desc, t);
+                    } catch (Exception exc) {
+                        throw new RuntimeException(exc);
+                    }
+                }
+            }
+            FileUtil.writeString(generate, f, StandardCharsets.UTF_8);
+        }
     }
 
     private String generateWithRetry(String prompt) {
         try {
-           return docGenerate.generate(SYSTEM_MESSAGE, prompt);
+            return docGenerate.generate(SYSTEM_MESSAGE, prompt);
         } catch (Exception e) {
             try {
                 ThreadUtil.safeSleep(1000);
@@ -108,10 +185,20 @@ public class StoryMaker {
     }
 
     private void continueWrite(String originStr, String prompt, File touch) {
-        String[] split = originStr.split("@@@");
-        prompt = "请根据提示："+prompt+"续写50集,从第"+split.length+"集开始";
-        System.out.println("continueWrite:"+prompt);
+        if (split(FileUtil.readString(touch, StandardCharsets.UTF_8)).size() >= 150) {
+            return;
+        }
+        List<String> split = split(originStr);
+        prompt = "请根据提示：" + prompt + "续写50集,从第" + split.size() + "集开始";
+        System.out.println("continueWrite:" + prompt);
         String generate = generateWithRetry(prompt);
         FileUtil.appendString(generate, touch, StandardCharsets.UTF_8);
+        if (split(FileUtil.readString(touch, StandardCharsets.UTF_8)).size() < 150) {
+            continueWrite(FileUtil.readString(touch, StandardCharsets.UTF_8), prompt, touch);
+        }
+    }
+
+    private List<String> split(String originStr) {
+        return Arrays.stream(originStr.split("@@@")).filter(StrUtil::isNotBlank).toList();
     }
 }

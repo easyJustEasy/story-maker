@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 @Service
 @Slf4j
-public class VoiceGenerate {
+public class TongYiVoiceGenerate {
     private static String model = "cosyvoice-v1";
     private static String voice = "longyue";
     private  int count = 0;

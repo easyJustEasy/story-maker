@@ -85,7 +85,11 @@
       <version>33.1.0-jre</version>
     </dependency>
 
-
+    <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>javacv-platform</artifactId>
+      <version>1.5.11</version>
+    </dependency>
 
     <!-- https://mvnrepository.com/artifact/org.springframework.ai/spring-ai-ollama-spring-boot-starter -->
     <dependency>

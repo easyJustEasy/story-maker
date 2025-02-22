@@ -3,22 +3,24 @@ package org.example.xiaoxiao;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import org.example.base.AppConfig;
-import org.example.base.VoiceGenerate;
+import org.example.base.LocalVoiceGenerate;
+import org.example.base.TongYiVoiceGenerate;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 public class XiaoXiaoVoice {
     public static void main(String[] args) {
-        VoiceGenerate voiceGenerate = new VoiceGenerate();
+//        TongYiVoiceGenerate tongYiVoiceGenerate = new TongYiVoiceGenerate();
+        LocalVoiceGenerate tongYiVoiceGenerate = new LocalVoiceGenerate();
         File file = new File("temp/gushi");
         File[] files = file.listFiles();
         for (File file1 : files) {
             String name = file1.getName().replaceAll(".txt","");
             try {
-                String path = AppConfig.tempDir()+File.separator+ "gushi"+File.separator+name+".mp3";
+                String path = AppConfig.tempDir()+File.separator+ "gushi"+File.separator+name+".wav";
                 System.out.println("path"+path);
-                voiceGenerate.generate(StrUtil.trim(FileUtil.readString(file1, StandardCharsets.UTF_8)),path.replaceAll("gushi_",""));
+                tongYiVoiceGenerate.generate(StrUtil.trim(FileUtil.readString(file1, StandardCharsets.UTF_8)),path.replaceAll("gushi_",""));
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
