@@ -3,12 +3,25 @@ package org.example;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.example.base.RunPythonScript;
+import org.example.base.VoiceGenerate;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
 
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Slf4j
 public class VoiceGener {
-    public static void main(String[] args) {
-        String text = "你好我是一个优秀的java程序员，我可以为你定制任何程序";
+    @Autowired
+    private RunPythonScript runPythonScript;
+
+    @Test
+    public void test() throws Exception {
+        String prompt = "请生成一个关于植物大战僵尸的故事大纲";
+        runPythonScript.runPython(prompt);
 
     }
 }
