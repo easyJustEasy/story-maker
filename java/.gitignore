@@ -39,4 +39,4 @@ java/.vscode/
 java/log/
 java/.idea/
 java/.gradle/
-java/target/
+java/target/!/temp/
