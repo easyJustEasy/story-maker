@@ -32,7 +32,7 @@ public class VoiceGener {
     @Test
     public void test1() throws Exception {
         String prompt = "请生成一个关于植物大战僵尸的故事大纲";
-        File file = pythonPostApi.runPython(prompt);
+        File file = pythonPostApi.runPython(prompt, "temp/temp");
         String name = "植物大战僵尸";
 //        String path = AppConfig.tempDir()+File.separator+ "gushi"+File.separator+name+".wav";
 //        voiceMerager.concat(file.getAbsolutePath(), path);
