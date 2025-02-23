@@ -5,11 +5,14 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.example.base.LocalVoiceGenerate;
+import org.example.base.RunPythonScript;
 import org.example.base.TongYiDocGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -21,10 +24,14 @@ import java.util.concurrent.*;
 @Component
 @Slf4j
 public class StoryMaker {
+    private ExecutorService executorService = new ThreadPoolExecutor(5, 5, 2, TimeUnit.MINUTES, new LinkedBlockingQueue<>(100), new ThreadPoolExecutor.CallerRunsPolicy());
     @Autowired
     private TongYiDocGenerate docGenerate;
     @Autowired
     private LocalVoiceGenerate localVoiceGenerate;
+    @Autowired
+    private RunPythonScript runPythonScript;
+    Process process = null;
     private static final String SYSTEM_MESSAGE = """
             # 角色
             你是一位富有创意的儿童故事作家，擅长创作充满奇思妙想和科学元素的故事。你的角色是用生动有趣的方式激发孩子们的好奇心和创造力。
@@ -83,11 +90,35 @@ public class StoryMaker {
             目标：根据故事小节描述，写一篇1300字左右的小故事，要求不能脱离整体故事概述的人物设定、故事情节。
             """;
 
+    @PostConstruct
+    public void init() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if (process != null && process.isAlive()) {
+                long pid = process.pid();
+                process.destroy(); // 终止进程
+                System.out.println("Python server stopped.");
+
+                log.info("shutdown python server ======>>>" + pid);
+            }
+            executorService.shutdown();
+            log.info("shutdown now ======>>>");
+        }));
+    }
+
     public void generate(String prompt, File touch) {
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        new Thread(() -> {
+            process = runPythonScript.startServer(countDownLatch);
+        }).start();
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("generate started====>>>");
         String s = FileUtil.readString(touch, StandardCharsets.UTF_8);
         if (StrUtil.isNotBlank(s)) {
             continueWrite(s, prompt, touch);
-
         } else {
             String generate = generateWithRetry(prompt);
             FileUtil.appendString(generate, touch, StandardCharsets.UTF_8);
@@ -95,38 +126,40 @@ public class StoryMaker {
         }
         String storyPath = FileUtil.mkdir(touch.getParentFile().getAbsolutePath() + File.separator + "gushi").getAbsolutePath();
         generateEverySory(FileUtil.readString(touch, StandardCharsets.UTF_8), storyPath);
-        genrateEveryStoryAudio(storyPath);
-
-
+        while (true) {
+        }
     }
 
-    public void genrateEveryStoryAudio(String storyPath) {
-        File[] files = Objects.requireNonNull(new File(storyPath).listFiles());
-        for (File file :files ) {
 
-            String s = FileUtil.readString(file, StandardCharsets.UTF_8);
+    public void genrateEveryStoryAudio(String storyPath) {
+        executorService.submit(() -> {
+            System.out.println("genrateEveryStoryAudio:============================>" + storyPath);
+            if (StrUtil.isBlankIfStr(storyPath)) {
+                return;
+            }
+
+            File file = new File(storyPath);
             String s1 = file.getName().replaceAll(".txt", "");
             String audioPath = file.getParentFile().getAbsolutePath() + File.separator + s1 + ".wav";
             if (FileUtil.exist(audioPath)) {
                 return;
             }
+            String s = FileUtil.readString(file, StandardCharsets.UTF_8);
+            try {
+                localVoiceGenerate.generate(s, audioPath);
+            } catch (Exception e) {
                 try {
                     localVoiceGenerate.generate(s, audioPath);
-                } catch (Exception e) {
+                } catch (Exception ex) {
                     try {
                         localVoiceGenerate.generate(s, audioPath);
-                    } catch (Exception ex) {
-                        try {
-                            localVoiceGenerate.generate(s, audioPath);
-                        } catch (Exception exc) {
-                            throw new RuntimeException(exc);
-                        }
+                    } catch (Exception exc) {
+                        throw new RuntimeException(exc);
                     }
                 }
+            }
 
-
-        }
-
+        });
 
 
     }
@@ -147,31 +180,36 @@ public class StoryMaker {
             }
             String[] lines = t.split("[\\r\\n]+");
             List<String> list = Arrays.stream(lines).filter(StrUtil::isNotBlank).toList();
-            System.out.println(list.get(0));
             File f = new File(parentDir + File.separator + list.get(0) + ".txt");
             if (f.exists()) {
+                genrateEveryStoryAudio(f.getAbsolutePath());
                 continue;
             }
-            FileUtil.touch(f);
-            String generate = null;
+            doGenerateEveryStory(desc, t, f);
+            genrateEveryStoryAudio(f.getAbsolutePath());
+        }
+    }
+
+    private void doGenerateEveryStory(String desc, String t, File f) {
+        FileUtil.touch(f);
+        String generate = null;
+        try {
+            ThreadUtil.safeSleep(300);
+            generate = generate(desc, t);
+        } catch (Exception e) {
             try {
-                ThreadUtil.safeSleep(1000);
+                ThreadUtil.safeSleep(300);
                 generate = generate(desc, t);
-            } catch (Exception e) {
+            } catch (Exception ex) {
                 try {
-                    ThreadUtil.safeSleep(1000);
+                    ThreadUtil.safeSleep(300);
                     generate = generate(desc, t);
-                } catch (Exception ex) {
-                    try {
-                        ThreadUtil.safeSleep(1000);
-                        generate = generate(desc, t);
-                    } catch (Exception exc) {
-                        throw new RuntimeException(exc);
-                    }
+                } catch (Exception exc) {
+                    throw new RuntimeException(exc);
                 }
             }
-            FileUtil.writeString(generate, f, StandardCharsets.UTF_8);
         }
+        FileUtil.writeString(generate, f, StandardCharsets.UTF_8);
     }
 
     private String generateWithRetry(String prompt) {
@@ -198,7 +236,11 @@ public class StoryMaker {
             return;
         }
         List<String> split = split(originStr);
-        prompt = "请根据提示：" + prompt + "续写50集,从第" + split.size() + "集开始";
+        int last = 150 - split.size();
+        if (last <= 0) {
+            return;
+        }
+        prompt = "请根据提示：" + prompt + "续写" + (Math.min(last, 50)) + "集,从第" + split.size() + "集开始";
         System.out.println("continueWrite:" + prompt);
         String generate = generateWithRetry(prompt);
         FileUtil.appendString(generate, touch, StandardCharsets.UTF_8);

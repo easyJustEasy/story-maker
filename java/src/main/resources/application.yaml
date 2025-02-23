@@ -9,4 +9,5 @@ server:
   port: 8080
 local:
   voice-model-dir: E:\\work\\story-maker\\CosyVoice\\voice.py
+  server-dir: E:\\work\\story-maker\\CosyVoice\\server.py
   python-dir: C:\\ProgramData\\miniconda3\\envs\\cosyvoice\\python.exe

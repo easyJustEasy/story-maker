@@ -1,6 +1,9 @@
 package org.example.base;
 
 import cn.hutool.core.util.StrUtil;
+import org.example.App;
+
+import java.io.File;
 
 public class AppConfig {
     public static synchronized String apiKey() throws Exception {
@@ -20,6 +23,7 @@ public class AppConfig {
     }
 
     public static String tempDir() {
-        return  "temp";
+        return  System.getProperty("user.dir")+ File.separator+ "temp";
     }
+
 }

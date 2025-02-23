@@ -14,9 +14,11 @@ public class LocalVoiceGenerate {
     @Autowired
     private RunPythonScript runPythonScript;
     @Autowired
+    private PythonPostApi pythonPostApi;
+    @Autowired
     private FfmpegVoiceMerager voiceMerager;
     public  String generate(String text,String filePath) throws Exception {
-        File file = runPythonScript.runPython(text);
+        File file = pythonPostApi.runPython(text);
         voiceMerager.concat(file.getAbsolutePath(),filePath);
 
         return filePath;
