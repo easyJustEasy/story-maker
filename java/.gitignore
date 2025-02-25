@@ -41,3 +41,7 @@ java/.idea/
 java/.gradle/
 java/target/!/temp/
 java/temp/*
+!/temp/
+!/temp/audio/
+/temp/
+/temp/

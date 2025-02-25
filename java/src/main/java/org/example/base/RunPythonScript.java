@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
-import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -75,14 +74,13 @@ public class RunPythonScript {
             List<String> command = new ArrayList<>();
             command.add(pythonDir);
             command.add(serverDir);
-            File mkdir = FileUtil.mkdir(AppConfig.tempDir() + File.separator + UUID.randomUUID());
-            command.add(mkdir.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"));
+
             log.info("command :" + String.join(" ", command));
             processBuilder.command(command);
             processBuilder.redirectErrorStream(true);
             // 启动进程
             Process process = processBuilder.start();
-
+            log.info("start server pid :{}",process.pid());
             new Thread(()->{
                 // 读取Python脚本的标准输出
                 BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8));
@@ -93,10 +91,11 @@ public class RunPythonScript {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    System.out.println(line);
-                    if(line.contains("Uvicorn running on")){
+                    if(line.contains("Uvicorn running on")||line.contains("Running on all addresses")){
                         countDownLatch.countDown();
                     }
+                    System.out.println(line);
+
                 }
                 // 等待进程结束，并获取退出状态码
                 int exitCode = 0;

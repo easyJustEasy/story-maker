@@ -15,9 +15,9 @@ import java.util.UUID;
 @Slf4j
 public class PythonPostApi {
     public File runPython(String text, String filePath) {
-        log.info("run python start:"+text);
+        log.info("run python start:{}",filePath);
         String dirName = new File(filePath).getName().replaceAll(".wav","").trim();
-        File mkdir = FileUtil.mkdir(AppConfig.tempDir() + File.separator + dirName);
+        File mkdir = FileUtil.mkdir(AppConfig.tempDir() + File.separator+"audio"+File.separator + dirName);
         File[] files = Objects.requireNonNull(mkdir.listFiles());
         int length =files.length;
         if (length>0) {

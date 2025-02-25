@@ -107,9 +107,7 @@ public class StoryMaker {
 
     public void generate(String prompt, File touch) {
         CountDownLatch countDownLatch = new CountDownLatch(1);
-        new Thread(() -> {
-            process = runPythonScript.startServer(countDownLatch);
-        }).start();
+        process = runPythonScript.startServer(countDownLatch);
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {

@@ -5,19 +5,15 @@ from cosyvoice.cli.cosyvoice import CosyVoice2
 from cosyvoice.utils.file_utils import load_wav
 import torchaudio
 import sys
-import argparse
-from fastapi import FastAPI, UploadFile, Form, File
-from fastapi.responses import StreamingResponse
-from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
-app = FastAPI()
-# set cross region allowance
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"])
+
+from flask import Flask, request, jsonify
+app = Flask(__name__)
+@app.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    response.headers.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS")
+    return response
 current_working_directory =os.path.dirname(os.path.abspath(__file__))
 # 设置环境变量
 sys.path.append(f'{current_working_directory}/third_party/Matcha-TTS')
@@ -47,12 +43,15 @@ def run_instruct(text,path):
         stream=True , # 使用流式推理以减少显存占用
         speed=0.8
     )):
-        torchaudio.save(os.path.join(path,f'instruct_{i}.wav'), j['tts_speech'], cosyvoice.sample_rate)
-        torch.cuda.empty_cache()  # 释放显存
-@app.get("/get_voice")
-@app.post("/get_voice")
-async def get_voice(tts_text: str = Form(), path: str = Form()):
+   torchaudio.save(os.path.join(path,f'instruct_{i}.wav'), j['tts_speech'], cosyvoice.sample_rate)
+   torch.cuda.empty_cache()  # 释放显存
+
+@app.route("/get_voice",methods=["GET", "POST"])
+def get_voice():
+      # 获取表单数据
+    tts_text = request.form.get("tts_text")
+    path = request.form.get("path")
     run_instruct(tts_text,path)
-    return {"code":200,"data":{"path":path}}
+    return jsonify({"code":200,"data":{"path":path}})
 if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    app.run(host="0.0.0.0", port=8000, threaded=True)

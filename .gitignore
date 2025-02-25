@@ -39,5 +39,8 @@ java/.vscode/
 java/log/
 java/.idea/
 java/.gradle/
-java/target/
-CosyVoice/temp
+java/target/*
+CosyVoice/temp/*
+java/temp/*
+
+java/temp/audio/
