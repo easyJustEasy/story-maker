@@ -45,3 +45,4 @@ java/temp/*
 
 java/temp/audio/
 /.idea
+/CosyVoice/pretrained_models
