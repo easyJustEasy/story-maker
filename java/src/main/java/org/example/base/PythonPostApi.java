@@ -1,6 +1,7 @@
 package org.example.base;
 
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -33,10 +34,13 @@ public class PythonPostApi {
         log.info("run python end:"+body);
         return mkdir;
     }
-    public File runPythonRemote(String text, String filePath) {
+    public File runPythonRemote(String text, String filePath,String voice) {
+        if(StrUtil.isBlankIfStr(voice)){
+            voice = "longyue";
+        }
         FileUtil.touch(filePath);
         HttpResponse httpResponse = HttpUtil.createPost(remotePython +"/get_voice_remote")
-                .form(Map.of("tts_text",text,"audio","longyue"))
+                .form(Map.of("tts_text",text,"audio",voice))
                 .header("Accept", "audio/mpeg")
                 .execute();
         InputStream body = httpResponse.bodyStream();
