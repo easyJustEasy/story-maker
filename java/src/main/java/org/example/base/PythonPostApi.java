@@ -34,9 +34,9 @@ public class PythonPostApi {
         return mkdir;
     }
     public File runPythonRemote(String text, String filePath) {
-
+        FileUtil.touch(filePath);
         HttpResponse httpResponse = HttpUtil.createPost(remotePython +"/get_voice_remote")
-                .form(Map.of("tts_text",text,"path","temp"))
+                .form(Map.of("tts_text",text,"audio","longyue"))
                 .header("Accept", "audio/mpeg")
                 .execute();
         InputStream body = httpResponse.bodyStream();
