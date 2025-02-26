@@ -96,7 +96,7 @@ public class StoryMaker {
             if (process != null && process.isAlive()) {
                 long pid = process.pid();
                 process.destroy(); // 终止进程
-                System.out.println("Python server stopped.");
+               log.info("Python server stopped.");
 
                 log.info("shutdown python server ======>>>" + pid);
             }
@@ -106,14 +106,7 @@ public class StoryMaker {
     }
 
     public void generate(String prompt, File touch) {
-//        CountDownLatch countDownLatch = new CountDownLatch(1);
-//        process = runPythonScript.startServer(countDownLatch);
-//        try {
-//            countDownLatch.await();
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-        System.out.println("generate started====>>>");
+       log.info("generate started====>>>");
         String s = FileUtil.readString(touch, StandardCharsets.UTF_8);
         if (StrUtil.isNotBlank(s)) {
             continueWrite(s, prompt, touch);
@@ -124,15 +117,15 @@ public class StoryMaker {
         }
         String storyPath = FileUtil.mkdir(touch.getParentFile().getAbsolutePath() + File.separator + "gushi").getAbsolutePath();
         generateEverySory(FileUtil.readString(touch, StandardCharsets.UTF_8), storyPath);
-        while (true) {
-        }
+       log.info("generate end====>>>");
     }
 
 
     public void genrateEveryStoryAudio(String storyPath) {
-        executorService.submit(() -> {
-            System.out.println("genrateEveryStoryAudio:============================>" + storyPath);
+           log.info("genrateEveryStoryAudio start ============================>" + storyPath);
             if (StrUtil.isBlankIfStr(storyPath)) {
+               log.info("genrateEveryStoryAudio end ============================>" + storyPath);
+
                 return;
             }
 
@@ -140,6 +133,8 @@ public class StoryMaker {
             String s1 = file.getName().replaceAll(".txt", "");
             String audioPath = file.getParentFile().getAbsolutePath() + File.separator + s1 + ".wav";
             if (FileUtil.exist(audioPath)) {
+               log.info("genrateEveryStoryAudio end ============================>" + storyPath);
+
                 return;
             }
             String s = FileUtil.readString(file, StandardCharsets.UTF_8);
@@ -156,9 +151,7 @@ public class StoryMaker {
                     }
                 }
             }
-
-        });
-
+       log.info("genrateEveryStoryAudio end ============================>" + storyPath);
 
     }
 
@@ -189,6 +182,7 @@ public class StoryMaker {
     }
 
     private void doGenerateEveryStory(String desc, String t, File f) {
+        log.info("doGenerateEveryStory started  {}",f.getName());
         FileUtil.touch(f);
         String generate = null;
         try {
@@ -208,6 +202,8 @@ public class StoryMaker {
             }
         }
         FileUtil.writeString(generate, f, StandardCharsets.UTF_8);
+        log.info("doGenerateEveryStory end doGenerateEveryStory {}",f.getName());
+
     }
 
     private String generateWithRetry(String prompt) {
@@ -239,7 +235,7 @@ public class StoryMaker {
             return;
         }
         prompt = "请根据提示：" + prompt + "续写" + (Math.min(last, 50)) + "集,从第" + split.size() + "集开始";
-        System.out.println("continueWrite:" + prompt);
+       log.info("continueWrite:" + prompt);
         String generate = generateWithRetry(prompt);
         FileUtil.appendString(generate, touch, StandardCharsets.UTF_8);
         if (split(FileUtil.readString(touch, StandardCharsets.UTF_8)).size() < 150) {
