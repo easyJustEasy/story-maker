@@ -1,0 +1,111 @@
+2025-02-26 09:57:10,284 DEBUG Starting new HTTPS connection (1): www.modelscope.cn:443
+2025-02-26 09:57:10,704 DEBUG https://www.modelscope.cn:443 "GET /api/v1/models/iic/CosyVoice2-0.5B/revisions HTTP/1.1" 200 205
+2025-02-26 09:57:11,162 DEBUG https://www.modelscope.cn:443 "GET /api/v1/models/iic/CosyVoice2-0.5B/repo/files?Revision=master&Recursive=True HTTP/1.1" 200 None
+2025-02-26 09:57:11,166 - modelscope - INFO - Target directory already exists, skipping creation.
+/home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/diffusers/models/lora.py:393: FutureWarning: `LoRACompatibleLinear` is deprecated and will be removed in version 1.0.0. Use of `LoRACompatibleLinear` is deprecated. Please switch to PEFT backend by installing PEFT: `pip install peft`.
+  deprecate("LoRACompatibleLinear", "1.0.0", deprecation_message)
+2025-02-26 09:57:13,831 INFO input frame rate=25
+[1;31m2025-02-26 09:57:15.609781193 [E:onnxruntime:Default, provider_bridge_ort.cc:1744 TryGetProviderInfo_CUDA] /onnxruntime_src/onnxruntime/core/session/provider_bridge_ort.cc:1426 onnxruntime::Provider& onnxruntime::ProviderLibrary::Get() [ONNXRuntimeError] : 1 : FAIL : Failed to load library libonnxruntime_providers_cuda.so with error: libcublasLt.so.12: cannot open shared object file: No such file or directory
+[m
+[0;93m2025-02-26 09:57:15.609932945 [W:onnxruntime:Default, onnxruntime_pybind_state.cc:870 CreateExecutionProviderInstance] Failed to create CUDAExecutionProvider. Please reference https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirementsto ensure all dependencies are met.[m
+2025-02-26 09:57:16,253 WETEXT INFO building fst for zh_normalizer ...
+2025-02-26 09:57:16,253 INFO building fst for zh_normalizer ...
+2025-02-26 09:57:48,275 WETEXT INFO done
+2025-02-26 09:57:48,275 INFO done
+2025-02-26 09:57:48,275 WETEXT INFO fst path: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-02-26 09:57:48,275 INFO fst path: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-02-26 09:57:48,275 WETEXT INFO           /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-02-26 09:57:48,275 INFO           /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-02-26 09:57:48,280 WETEXT INFO found existing fst: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-02-26 09:57:48,280 INFO found existing fst: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-02-26 09:57:48,281 WETEXT INFO                     /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-02-26 09:57:48,281 INFO                     /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-02-26 09:57:48,281 WETEXT INFO skip building fst for en_normalizer ...
+2025-02-26 09:57:48,281 INFO skip building fst for en_normalizer ...
+/mnt/f/work/story-maker/CosyVoice/cosyvoice/cli/model.py:70: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.llm.load_state_dict(torch.load(llm_model, map_location=self.device), strict=True)
+/mnt/f/work/story-maker/CosyVoice/cosyvoice/cli/model.py:72: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.flow.load_state_dict(torch.load(flow_model, map_location=self.device), strict=True)
+/mnt/f/work/story-maker/CosyVoice/cosyvoice/cli/model.py:75: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  hift_state_dict = {k.replace('generator.', ''): v for k, v in torch.load(hift_model, map_location=self.device).items()}
+failed to import ttsfrd, use WeTextProcessing instead
+Downloading Model to directory: /mnt/f/work/story-maker/CosyVoice/pretrained_models/CosyVoice2-0.5B
+ * Serving Flask app 'server'
+ * Debug mode: off
+2025-02-26 09:57:52,325 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.3:8000
+2025-02-26 09:57:52,325 INFO [33mPress CTRL+C to quit[0m
+  0%|          | 0/16 [00:00<?, ?it/s]2025-02-26 10:02:48,412 INFO synthesis text 在植物小镇的第十二天，阳光透过树叶的缝隙，洒在每一片叶子上，给这个宁静的小镇增添了几分温暖。然而，这份宁静并没有持续太久。
+2025-02-26 10:03:27,311 INFO yield speech len 14.56, rtf 2.671614322033557
+  6%|▋         | 1/16 [00:41<10:27, 41.81s/it]2025-02-26 10:03:30,211 INFO synthesis text 前一晚，僵尸的突袭让植物们意识到，他们面对的不仅仅是偶尔的威胁，而是一场持久战。小豌豆射手站在小镇的中央广场，它的叶子微微颤抖，眼神中却充满了坚定。
+2025-02-26 10:04:15,644 INFO yield speech len 16.52, rtf 2.7501636786841885
+ 12%|█▎        | 2/16 [01:30<10:39, 45.66s/it]2025-02-26 10:04:18,521 INFO synthesis text 它知道，只有通过不断的成长和努力，才能真正保护好这个家园。它的朋友们，向日葵、坚果墙、樱桃炸弹等，也都聚集在一起，彼此鼓励，准备迎接新的挑战。
+2025-02-26 10:04:54,945 INFO yield speech len 13.12, rtf 2.7761711579997366
+ 19%|█▉        | 3/16 [02:09<09:15, 42.76s/it]2025-02-26 10:04:57,829 INFO synthesis text “我们不能只是被动防守，”小豌豆射手说道，“我们需要学会更多的技能，才能更好地保护自己。”向日葵点了点头，它的花瓣在阳光下闪闪发光：
+2025-02-26 10:05:42,447 INFO yield speech len 15.96, rtf 2.7955792004004456
+ 25%|██▌       | 4/16 [02:56<08:55, 44.63s/it]2025-02-26 10:05:45,381 INFO synthesis text “没错，我们每个人都有自己的特点，如果能更好地发挥出来，一定能找到对付僵尸的办法。”坚果墙也站了出来，它的身体坚硬如石：“我可以在前线挡住僵尸，为你们争取时间。”
+2025-02-26 10:06:33,169 INFO yield speech len 17.48, rtf 2.733842991036736
+ 31%|███▏      | 5/16 [03:47<08:35, 46.83s/it]2025-02-26 10:06:36,068 INFO synthesis text 樱桃炸弹则兴奋地挥舞着自己的叶子：“我可以引爆自己，给僵尸们一个惊喜！”植物们纷纷提出了自己的想法，大家开始了一场关于如何提升自身能力的讨论。
+2025-02-26 10:07:17,629 INFO yield speech len 15.6, rtf 2.664163112640381
+ 38%|███▊      | 6/16 [04:32<07:40, 46.02s/it]2025-02-26 10:07:20,550 INFO synthesis text 小豌豆射手提议，大家可以通过训练和合作，互相学习对方的技能，增强整体的战斗力。于是，植物们开始了紧张的训练。小豌豆射手带领大家练习射击，向日葵则教大家如何更高效地吸收阳光，坚果墙则带领大家进行防御训练，樱桃炸弹则分享了自己的爆炸技巧。
+2025-02-26 10:08:19,819 INFO yield speech len 24.72, rtf 2.3976269470449405
+ 44%|████▍     | 7/16 [05:34<07:41, 51.33s/it]2025-02-26 10:08:22,757 INFO synthesis text 在训练的过程中，植物们不仅提升了自己的技能，还增进了彼此的了解和信任。他们发现，团队合作的力量远远大于个人的努力。小豌豆射手和向日葵的组合，能够在短时间内产生大量的阳光，为其他植物提供能量；
+2025-02-26 10:09:08,956 INFO yield speech len 18.0, rtf 2.566639529334174
+ 50%|█████     | 8/16 [06:23<06:44, 50.62s/it]2025-02-26 10:09:11,885 INFO synthesis text 坚果墙和樱桃炸弹的合作，则可以在前线形成一道坚不可摧的防线。一天傍晚，植物们正在训练时，突然听到了远处传来的脚步声。僵尸们再次出现了！
+2025-02-26 10:09:54,565 INFO yield speech len 14.92, rtf 2.8605902642411136
+ 56%|█████▋    | 9/16 [07:09<05:43, 49.04s/it]2025-02-26 10:09:57,437 INFO synthesis text 这一次，他们的数量更多，动作也更加迅速。小豌豆射手立刻指挥大家进入战斗位置。坚果墙站在最前方，挡住了僵尸的进攻；小豌豆射手和向日葵则在后方不断地射击和提供能量；
+2025-02-26 10:10:40,365 INFO yield speech len 16.64, rtf 2.579831933745971
+ 62%|██████▎   | 10/16 [07:54<04:48, 48.05s/it]2025-02-26 10:10:43,232 INFO synthesis text 樱桃炸弹则在关键时刻引爆自己，消灭了大批僵尸。战斗持续了很久，植物们虽然疲惫，但他们的合作却越来越默契。最终，僵尸们被彻底击退，小镇再次恢复了宁静。
+2025-02-26 10:11:27,390 INFO yield speech len 17.28, rtf 2.555428017620687
+ 69%|██████▉   | 11/16 [08:41<03:58, 47.73s/it]2025-02-26 10:11:30,381 INFO synthesis text 战斗结束后，植物们围坐在一起，彼此分享着战斗中的心得。小豌豆射手感慨地说道：“通过这次战斗，我们不仅保护了家园，还学会了更多的技能。
+2025-02-26 10:12:07,578 INFO yield speech len 13.36, rtf 2.784234713651463
+ 75%|███████▌  | 12/16 [09:22<03:01, 45.43s/it]2025-02-26 10:12:10,530 INFO synthesis text 更重要的是，我们明白了团队合作的重要性。”向日葵点了点头：“是的，只有我们团结一致，才能战胜任何困难。”坚果墙也露出了难得的笑容：
+2025-02-26 10:12:50,732 INFO yield speech len 13.64, rtf 2.947420860665285
+ 81%|████████▏ | 13/16 [10:05<02:14, 44.74s/it]2025-02-26 10:12:53,574 INFO synthesis text “我们每个人都是这个团队中不可或缺的一部分。”樱桃炸弹则兴奋地跳了起来：“下次僵尸再来，我们一定会更加强大！”植物们相视一笑，心中充满了对未来的信心。
+2025-02-26 10:13:37,256 INFO yield speech len 16.8, rtf 2.600093029794239
+ 88%|████████▊ | 14/16 [10:51<01:30, 45.29s/it]2025-02-26 10:13:40,152 INFO synthesis text 他们知道，只要他们团结一致，不断成长，就没有什么能够威胁到他们的家园。从此以后，植物小镇的每一天都充满了希望与活力。植物们继续着他们的训练，不断提升自己，准备迎接未来的挑战。
+2025-02-26 10:14:22,164 INFO yield speech len 16.0, rtf 2.625719979405403
+ 94%|█████████▍| 15/16 [11:36<00:45, 45.17s/it]2025-02-26 10:14:25,043 INFO synthesis text 他们相信，无论遇到什么样的困难，只要他们团结一心，就一定能够守护好这个美丽的家园。而这个故事，也成为了植物小镇上流传千古的传奇，激励着一代又一代的植物们，勇敢地面对生活中的每一个挑战。
+2025-02-26 10:15:12,356 INFO yield speech len 17.24, rtf 2.7443361531277546
+100%|██████████| 16/16 [12:26<00:00, 46.69s/it]100%|██████████| 16/16 [12:26<00:00, 46.68s/it]
+2025-02-26 10:15:12,809 INFO 192.168.1.7 - - [26/Feb/2025 10:15:12] "POST /get_voice_remote HTTP/1.1" 200 -
+  0%|          | 0/18 [00:00<?, ?it/s]2025-02-26 10:15:16,504 INFO synthesis text 在植物小镇的中心地带，有一座被茂密藤蔓覆盖的实验室，这里是植物联盟的科研基地。自从僵尸入侵的消息传来，小镇的植物们便开始了紧张而有序的备战工作。小豌豆射手、
+2025-02-26 10:16:03,730 INFO yield speech len 18.64, rtf 2.5335869819821206
+  6%|▌         | 1/18 [00:50<14:12, 50.12s/it]2025-02-26 10:16:06,629 INFO synthesis text 向日葵医生、坚果墙守卫以及樱桃炸弹兄弟等植物英雄们，都在为保卫家园贡献着自己的力量。这一天，阳光明媚，实验室的门缓缓打开，向日葵医生兴奋地走了出来，手中捧着一颗闪闪发光的种子。
+2025-02-26 10:16:53,799 INFO yield speech len 18.64, rtf 2.5305540776559723
+ 11%|█         | 2/18 [01:40<13:21, 50.08s/it]2025-02-26 10:16:56,685 INFO synthesis text “我们成功了！”她高声宣布，声音中满是自豪和喜悦。周围的植物们纷纷围了过来，好奇地打量着这颗神秘的种子。“这就是我们的秘密武器？”
+2025-02-26 10:17:33,873 INFO yield speech len 13.36, rtf 2.7835303081009917
+ 17%|█▋        | 3/18 [02:20<11:22, 45.50s/it]2025-02-26 10:17:36,734 INFO synthesis text 小豌豆射手好奇地问道，眼中闪烁着期待的光芒。“没错，”向日葵医生微笑着点头，“经过无数次试验和改良，我们终于研发出了‘超级能量种子’。
+2025-02-26 10:18:16,121 INFO yield speech len 13.16, rtf 2.9929028455971944
+ 22%|██▏       | 4/18 [03:02<10:18, 44.21s/it]2025-02-26 10:18:18,970 INFO synthesis text 这颗种子能够在短时间内激发出植物们潜藏的力量，让我们的攻击力、防御力和生命力都得到极大的提升。”“太棒了！”坚果墙守卫兴奋地拍了拍树干，“有了这颗种子，我们一定能够打败那些可恶的僵尸！”
+2025-02-26 10:19:06,789 INFO yield speech len 17.48, rtf 2.735669866579348
+ 28%|██▊       | 5/18 [03:53<10:05, 46.55s/it]2025-02-26 10:19:09,677 INFO synthesis text 樱桃炸弹兄弟也跳了起来，“哈哈，到时候我们就能把僵尸炸得落花流水！”然而，小豌豆射手却显得有些担忧，“可是，这颗种子真的安全吗？会不会有什么副作用？”
+2025-02-26 10:19:56,906 INFO yield speech len 18.64, rtf 2.5337569063825156
+ 33%|███▎      | 6/18 [04:43<09:33, 47.77s/it]2025-02-26 10:19:59,819 INFO synthesis text 向日葵医生理解地点了点头，“你的担心不无道理。我们在研发过程中也考虑到了这一点。经过多次测试，我们发现‘超级能量种子’只有在植物们意志坚定、
+2025-02-26 10:20:36,859 INFO yield speech len 13.2, rtf 2.8060558528611157
+ 39%|███▉      | 7/18 [05:23<08:17, 45.20s/it]2025-02-26 10:20:39,721 INFO synthesis text 团结一心的情况下才能发挥出最大的效果。如果植物们心存疑虑或恐惧，种子可能会失去作用，甚至带来反效果。”听到这里，植物们陷入了沉思。
+2025-02-26 10:21:18,965 INFO yield speech len 13.08, rtf 3.000275184619682
+ 44%|████▍     | 8/18 [06:05<07:22, 44.21s/it]2025-02-26 10:21:21,834 INFO synthesis text 他们知道，面对强大的僵尸，不仅需要强大的武器，更需要坚定的信念和无畏的勇气。就在这时，远处突然传来了一阵低沉的轰鸣声。植物们抬头望去，只见一群僵尸正朝小镇的方向缓缓逼近。
+2025-02-26 10:22:21,700 INFO yield speech len 23.24, rtf 2.5759896907872055
+ 50%|█████     | 9/18 [07:08<07:30, 50.03s/it]2025-02-26 10:22:24,653 INFO synthesis text 领头的僵尸将军挥舞着巨大的铁锤，狞笑着喊道：“植物们，你们的末日到了！”面对突如其来的危机，植物们迅速进入备战状态。小豌豆射手站到了最前方，目光坚定地望着远处的僵尸，“大家准备好了吗？”
+2025-02-26 10:23:14,513 INFO yield speech len 20.08, rtf 2.4830606472919663
+ 56%|█████▌    | 10/18 [08:00<06:47, 50.88s/it]2025-02-26 10:23:17,441 INFO synthesis text “准备好了！”植物们齐声回应，声音中充满了斗志。向日葵医生将“超级能量种子”高高举起，“让我们团结一心，激发出最强大的力量吧！”
+2025-02-26 10:23:54,109 INFO yield speech len 13.04, rtf 2.811984141911466
+ 61%|██████    | 11/18 [08:40<05:31, 47.41s/it]2025-02-26 10:23:56,971 INFO synthesis text 说完，她将种子种在了小镇的中心广场上。随着种子入土，一道耀眼的光芒瞬间笼罩了整个小镇。植物们感到一股强大的能量涌入体内，他们的叶片变得更加翠绿，花朵更加鲜艳，甚至连根茎都变得更加粗壮有力。
+2025-02-26 10:24:48,615 INFO yield speech len 20.88, rtf 2.473402845448461
+ 67%|██████▋   | 12/18 [09:35<04:57, 49.59s/it]2025-02-26 10:24:51,559 INFO synthesis text “冲！”小豌豆射手率先发起了攻击，一颗颗豌豆炮弹如同流星般射向僵尸群。坚果墙守卫则迅速构建起了一道坚固的防线，保护着身后的植物们。
+2025-02-26 10:25:32,830 INFO yield speech len 14.12, rtf 2.9229210388896827
+ 72%|███████▏  | 13/18 [10:19<03:59, 47.94s/it]2025-02-26 10:25:35,697 INFO synthesis text 樱桃炸弹兄弟也不甘示弱，他们跳跃着冲向僵尸，引发了一连串的爆炸。僵尸们显然没有料到植物们会突然变得如此强大，他们被打得措手不及，纷纷倒在了植物们的攻击下。
+2025-02-26 10:26:21,221 INFO yield speech len 16.28, rtf 2.7962968888388215
+ 78%|███████▊  | 14/18 [11:07<03:12, 48.09s/it]2025-02-26 10:26:24,107 INFO synthesis text 然而，僵尸将军却依然顽强地挥舞着铁锤，试图突破植物的防线。看到这一幕，小豌豆射手深吸了一口气，集中全身的力量，向僵尸将军射出了一颗超级能量豌豆。
+2025-02-26 10:27:08,891 INFO yield speech len 15.88, rtf 2.8201435014643055
+ 83%|████████▎ | 15/18 [11:55<02:23, 47.96s/it]2025-02-26 10:27:11,777 INFO synthesis text 只听“轰”的一声巨响，僵尸将军的铁锤被击得粉碎，他本人也被巨大的冲击力震飞了出去，重重地摔在了地上。“我们赢了！”植物们欢呼雀跃，他们成功地击退了僵尸的进攻，保卫了家园。
+2025-02-26 10:28:07,437 INFO yield speech len 21.4, rtf 2.6009393852447795
+ 89%|████████▉ | 16/18 [12:53<01:42, 51.16s/it]2025-02-26 10:28:10,360 INFO synthesis text 战后，植物们围坐在“超级能量种子”旁边，感受着它带来的温暖和力量。他们明白，正是团结和信念让他们战胜了强大的敌人。而那颗闪闪发光的种子，也成为了植物小镇和平与希望的象征。
+2025-02-26 10:29:05,047 INFO yield speech len 20.84, rtf 2.624177337836853
+ 94%|█████████▍| 17/18 [13:51<00:53, 53.10s/it]2025-02-26 10:29:07,975 INFO synthesis text 从此以后，植物们更加团结，他们知道，只要心中有爱和勇气，就没有什么能够打败他们。而那颗“超级能量种子”，也将在未来的战斗中，继续守护着这个美丽的小镇。
+2025-02-26 10:29:50,812 INFO yield speech len 16.4, rtf 2.6120136569185957
+100%|██████████| 18/18 [14:37<00:00, 50.88s/it]100%|██████████| 18/18 [14:37<00:00, 48.73s/it]
+2025-02-26 10:29:51,294 INFO 192.168.1.7 - - [26/Feb/2025 10:29:51] "POST /get_voice_remote HTTP/1.1" 200 -

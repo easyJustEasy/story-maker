@@ -63,6 +63,9 @@ def get_voice():
 def get_voice_remote():
       # 获取表单数据
     tts_text = request.form.get("tts_text")
+    audio = request.form.get("audio")
+    # 加载示例音频
+    prompt_speech_16k = load_wav(f'{current_working_directory}/asset/{audio}.wav', 16000)
     model_output = cosyvoice.inference_instruct2(tts_text,  '希望你以后能够做的比我还好呦。', prompt_speech_16k)
     tts_audio = b''
     for i,j in enumerate(model_output):
