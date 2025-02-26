@@ -77,6 +77,14 @@ def get_voice_remote():
     def generate():
         with open(path, "rb") as f:
             yield from f
+    
+    @after_this_request
+    def remove_file(response):
+        try:
+            os.remove(path)  # 删除临时文件
+        except Exception as error:
+            app.logger.error("Error removing or closing downloaded file handle", error)
+        return response
     return Response(generate(), mimetype='application/octet-stream')
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8000, threaded=True)
