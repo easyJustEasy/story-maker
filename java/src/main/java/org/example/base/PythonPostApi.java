@@ -6,7 +6,7 @@ import cn.hutool.http.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
+import java.io.*;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -25,9 +25,30 @@ public class PythonPostApi {
                 FileUtil.del(file);
             }
         }
-        HttpResponse httpResponse = HttpUtil.createPost("http://127.0.0.1:8000/get_voice").form(Map.of("tts_text",text,"path",mkdir.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"))).execute();
+        HttpResponse httpResponse = HttpUtil.createPost("http://127.0.0.1:8000/get_voice")
+                .form(Map.of("tts_text",text,"path",mkdir.getAbsolutePath().replaceAll("\\\\", "\\\\\\\\"))).execute();
         String body = httpResponse.body();
         log.info("run python end:"+body);
         return mkdir;
+    }
+    public File runPythonRemote(String text, String cosyUrl) {
+
+        HttpResponse httpResponse = HttpUtil.createPost(cosyUrl+"/get_voice_remote")
+                .form(Map.of("tts_text",text,"path","temp"))
+                .header("Accept", "audio/mpeg")
+                .execute();
+        InputStream body = httpResponse.bodyStream();
+        try (OutputStream outputStream = new FileOutputStream("output_voice.wav")) { // 保存到文件或实时处理
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = body.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 }
