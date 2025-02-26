@@ -4,16 +4,18 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 @Component
 @Slf4j
 public class PythonPostApi {
+    @Value("${local.remote-python}")
+    private String remotePython;
     public File runPython(String text, String filePath) {
         log.info("run python start:{}",filePath);
         String dirName = new File(filePath).getName().replaceAll(".wav","").trim();
@@ -31,14 +33,14 @@ public class PythonPostApi {
         log.info("run python end:"+body);
         return mkdir;
     }
-    public File runPythonRemote(String text, String cosyUrl) {
+    public File runPythonRemote(String text, String filePath) {
 
-        HttpResponse httpResponse = HttpUtil.createPost(cosyUrl+"/get_voice_remote")
+        HttpResponse httpResponse = HttpUtil.createPost(remotePython +"/get_voice_remote")
                 .form(Map.of("tts_text",text,"path","temp"))
                 .header("Accept", "audio/mpeg")
                 .execute();
         InputStream body = httpResponse.bodyStream();
-        try (OutputStream outputStream = new FileOutputStream("output_voice.wav")) { // 保存到文件或实时处理
+        try (OutputStream outputStream = new FileOutputStream(filePath)) { // 保存到文件或实时处理
             byte[] buffer = new byte[1024];
             int bytesRead;
             while ((bytesRead = body.read(buffer)) != -1) {
@@ -49,6 +51,6 @@ public class PythonPostApi {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return new File(filePath);
     }
 }

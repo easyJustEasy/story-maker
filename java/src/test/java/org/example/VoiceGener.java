@@ -76,10 +76,9 @@ public class VoiceGener {
                         怎么样，是不是很贴心呢？
                
                 """;
-        File file = pythonPostApi.runPythonRemote(prompt, "http://192.168.1.3:8000");
-//        String name = "voice";
-//        String path = AppConfig.tempDir()+File.separator+ "gushi"+File.separator+name+".wav";
-//        voiceMerager.concat(file.getAbsolutePath(), path);
+                String name = "voice";
+        String path = AppConfig.tempDir()+File.separator+ "gushi"+File.separator+name+".wav";
+        File file = pythonPostApi.runPythonRemote(prompt, path);
 
     }
 }

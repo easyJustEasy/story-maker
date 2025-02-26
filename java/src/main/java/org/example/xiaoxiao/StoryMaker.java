@@ -106,13 +106,13 @@ public class StoryMaker {
     }
 
     public void generate(String prompt, File touch) {
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-        process = runPythonScript.startServer(countDownLatch);
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        CountDownLatch countDownLatch = new CountDownLatch(1);
+//        process = runPythonScript.startServer(countDownLatch);
+//        try {
+//            countDownLatch.await();
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         System.out.println("generate started====>>>");
         String s = FileUtil.readString(touch, StandardCharsets.UTF_8);
         if (StrUtil.isNotBlank(s)) {
