@@ -5,7 +5,8 @@ from cosyvoice.cli.cosyvoice import CosyVoice2
 from cosyvoice.utils.file_utils import load_wav
 import torchaudio
 import sys
-
+from modelscope import snapshot_download
+snapshot_download('iic/CosyVoice2-0.5B', local_dir='pretrained_models/CosyVoice2-0.5B')
 from flask import Flask, request, jsonify
 app = Flask(__name__)
 @app.after_request
@@ -22,15 +23,11 @@ sys.path.append(f'{current_working_directory}/cosyvoice')
 model_dir = f'{current_working_directory}/pretrained_models/CosyVoice2-0.5B'
 # 初始化 CosyVoice2 模型
 cosyvoice = CosyVoice2(
-       model_dir
-,
-    load_jit=False,  # 如果显存不足，可以尝试设置为 True
-    load_trt=False,  # 如果显存不足，可以尝试设置为 True
-    fp16=True       # 使用半精度浮点数以减少显存占用
+       model_dir      # 使用半精度浮点数以减少显存占用
 )
 
 # 加载示例音频
-prompt_speech_16k = load_wav(f'{current_working_directory}/asset/longyue.wav', 16000)
+prompt_speech_16k = load_wav(f'{current_working_directory}/asset/xianyudayin.wav', 16000)
 
 
 # 指令语音合成
@@ -38,10 +35,10 @@ def run_instruct(text,path):
   print(f'run_instruct===>{path}')
   for i, j in enumerate(cosyvoice.inference_instruct2(
         text,
-        '用普通话亲切甜蜜的口吻说这句话',
+        '希望你以后能够做的比我还好呦。',
         prompt_speech_16k,
         stream=True , # 使用流式推理以减少显存占用
-        speed=0.8
+        speed=1.1
     )):
    torchaudio.save(os.path.join(path,f'instruct_{i}.wav'), j['tts_speech'], cosyvoice.sample_rate)
    torch.cuda.empty_cache()  # 释放显存

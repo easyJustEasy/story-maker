@@ -3,7 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/CosyVoice" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/CosyVoice/pretrained_models/CosyVoice2-0.5B" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/CosyVoice/third_party/Matcha-TTS" vcs="Git" />
   </component>
 </project>
