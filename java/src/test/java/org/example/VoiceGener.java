@@ -77,7 +77,8 @@ public class VoiceGener {
                
                 """;
                 String name = "voice";
-        String path = AppConfig.tempDir()+File.separator+ "gushi"+File.separator+name+".wav";
+        String path = AppConfig.tempDir()+File.separator+ "voice"+File.separator+name+".wav";
+
         File file = pythonPostApi.runPythonRemote(prompt, path);
 
     }

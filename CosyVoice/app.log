@@ -10,3 +10,30 @@
 [0;93m2025-02-26 13:26:49.702914272 [W:onnxruntime:Default, onnxruntime_pybind_state.cc:870 CreateExecutionProviderInstance] Failed to create CUDAExecutionProvider. Please reference https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirementsto ensure all dependencies are met.[m
 2025-02-26 13:26:50,353 WETEXT INFO building fst for zh_normalizer ...
 2025-02-26 13:26:50,353 INFO building fst for zh_normalizer ...
+2025-02-26 13:27:22,274 WETEXT INFO done
+2025-02-26 13:27:22,274 INFO done
+2025-02-26 13:27:22,275 WETEXT INFO fst path: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-02-26 13:27:22,275 INFO fst path: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-02-26 13:27:22,275 WETEXT INFO           /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-02-26 13:27:22,275 INFO           /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-02-26 13:27:22,280 WETEXT INFO found existing fst: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-02-26 13:27:22,280 INFO found existing fst: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-02-26 13:27:22,280 WETEXT INFO                     /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-02-26 13:27:22,280 INFO                     /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-02-26 13:27:22,280 WETEXT INFO skip building fst for en_normalizer ...
+2025-02-26 13:27:22,280 INFO skip building fst for en_normalizer ...
+/mnt/f/work/story-maker/CosyVoice/cosyvoice/cli/model.py:70: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.llm.load_state_dict(torch.load(llm_model, map_location=self.device), strict=True)
+/mnt/f/work/story-maker/CosyVoice/cosyvoice/cli/model.py:72: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.flow.load_state_dict(torch.load(flow_model, map_location=self.device), strict=True)
+/mnt/f/work/story-maker/CosyVoice/cosyvoice/cli/model.py:75: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  hift_state_dict = {k.replace('generator.', ''): v for k, v in torch.load(hift_model, map_location=self.device).items()}
+failed to import ttsfrd, use WeTextProcessing instead
+Downloading Model to directory: /mnt/f/work/story-maker/CosyVoice/pretrained_models/CosyVoice2-0.5B
+ * Serving Flask app 'server'
+ * Debug mode: off
+2025-02-26 13:27:26,312 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.3:8000
+2025-02-26 13:27:26,312 INFO [33mPress CTRL+C to quit[0m
