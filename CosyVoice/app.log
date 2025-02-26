@@ -37,3 +37,20 @@ Downloading Model to directory: /mnt/f/work/story-maker/CosyVoice/pretrained_mod
  * Running on http://127.0.0.1:8000
  * Running on http://192.168.1.3:8000
 2025-02-26 13:27:26,312 INFO [33mPress CTRL+C to quit[0m
+  0%|          | 0/1 [00:00<?, ?it/s]2025-02-26 13:32:05,118 INFO synthesis text 大家都在干什么的，我猜猜，一定在看电视吧。
+2025-02-26 13:32:16,227 INFO yield speech len 4.44, rtf 2.5019601658657864
+100%|██████████| 1/1 [00:12<00:00, 12.60s/it]100%|██████████| 1/1 [00:12<00:00, 12.60s/it]
+2025-02-26 13:32:16,273 ERROR Exception on /get_voice_remote [POST]
+Traceback (most recent call last):
+  File "/home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/mnt/f/work/story-maker/CosyVoice/server.py", line 81, in get_voice_remote
+    @after_this_request
+NameError: name 'after_this_request' is not defined
+2025-02-26 13:32:16,275 INFO 192.168.1.24 - - [26/Feb/2025 13:32:16] "[35m[1mPOST /get_voice_remote HTTP/1.1[0m" 500 -

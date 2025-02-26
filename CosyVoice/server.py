@@ -10,7 +10,7 @@ import numpy as np
 torch.backends.cudnn.enabled = False
 from modelscope import snapshot_download
 snapshot_download('iic/CosyVoice2-0.5B', local_dir='pretrained_models/CosyVoice2-0.5B')
-from flask import Flask, request, jsonify, Response, stream_with_context, request
+from flask import Flask, request, jsonify, Response, stream_with_context, request,after_this_request
 app = Flask(__name__)
 @app.after_request
 def after_request(response):
