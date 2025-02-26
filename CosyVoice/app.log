@@ -1,27 +1,27 @@
-2025-02-26 13:26:44,539 DEBUG Starting new HTTPS connection (1): www.modelscope.cn:443
-2025-02-26 13:26:44,829 DEBUG https://www.modelscope.cn:443 "GET /api/v1/models/iic/CosyVoice2-0.5B/revisions HTTP/1.1" 200 205
-2025-02-26 13:26:45,217 DEBUG https://www.modelscope.cn:443 "GET /api/v1/models/iic/CosyVoice2-0.5B/repo/files?Revision=master&Recursive=True HTTP/1.1" 200 None
-2025-02-26 13:26:45,220 - modelscope - INFO - Target directory already exists, skipping creation.
+2025-02-26 14:04:13,424 DEBUG Starting new HTTPS connection (1): www.modelscope.cn:443
+2025-02-26 14:04:13,705 DEBUG https://www.modelscope.cn:443 "GET /api/v1/models/iic/CosyVoice2-0.5B/revisions HTTP/1.1" 200 205
+2025-02-26 14:04:14,174 DEBUG https://www.modelscope.cn:443 "GET /api/v1/models/iic/CosyVoice2-0.5B/repo/files?Revision=master&Recursive=True HTTP/1.1" 200 None
+2025-02-26 14:04:14,177 - modelscope - INFO - Target directory already exists, skipping creation.
 /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/diffusers/models/lora.py:393: FutureWarning: `LoRACompatibleLinear` is deprecated and will be removed in version 1.0.0. Use of `LoRACompatibleLinear` is deprecated. Please switch to PEFT backend by installing PEFT: `pip install peft`.
   deprecate("LoRACompatibleLinear", "1.0.0", deprecation_message)
-2025-02-26 13:26:47,921 INFO input frame rate=25
-[1;31m2025-02-26 13:26:49.702759344 [E:onnxruntime:Default, provider_bridge_ort.cc:1744 TryGetProviderInfo_CUDA] /onnxruntime_src/onnxruntime/core/session/provider_bridge_ort.cc:1426 onnxruntime::Provider& onnxruntime::ProviderLibrary::Get() [ONNXRuntimeError] : 1 : FAIL : Failed to load library libonnxruntime_providers_cuda.so with error: libcublasLt.so.12: cannot open shared object file: No such file or directory
+2025-02-26 14:04:16,847 INFO input frame rate=25
+[1;31m2025-02-26 14:04:18.634915603 [E:onnxruntime:Default, provider_bridge_ort.cc:1744 TryGetProviderInfo_CUDA] /onnxruntime_src/onnxruntime/core/session/provider_bridge_ort.cc:1426 onnxruntime::Provider& onnxruntime::ProviderLibrary::Get() [ONNXRuntimeError] : 1 : FAIL : Failed to load library libonnxruntime_providers_cuda.so with error: libcublasLt.so.12: cannot open shared object file: No such file or directory
 [m
-[0;93m2025-02-26 13:26:49.702914272 [W:onnxruntime:Default, onnxruntime_pybind_state.cc:870 CreateExecutionProviderInstance] Failed to create CUDAExecutionProvider. Please reference https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirementsto ensure all dependencies are met.[m
-2025-02-26 13:26:50,353 WETEXT INFO building fst for zh_normalizer ...
-2025-02-26 13:26:50,353 INFO building fst for zh_normalizer ...
-2025-02-26 13:27:22,274 WETEXT INFO done
-2025-02-26 13:27:22,274 INFO done
-2025-02-26 13:27:22,275 WETEXT INFO fst path: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
-2025-02-26 13:27:22,275 INFO fst path: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
-2025-02-26 13:27:22,275 WETEXT INFO           /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
-2025-02-26 13:27:22,275 INFO           /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
-2025-02-26 13:27:22,280 WETEXT INFO found existing fst: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_tagger.fst
-2025-02-26 13:27:22,280 INFO found existing fst: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_tagger.fst
-2025-02-26 13:27:22,280 WETEXT INFO                     /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
-2025-02-26 13:27:22,280 INFO                     /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
-2025-02-26 13:27:22,280 WETEXT INFO skip building fst for en_normalizer ...
-2025-02-26 13:27:22,280 INFO skip building fst for en_normalizer ...
+[0;93m2025-02-26 14:04:18.635082204 [W:onnxruntime:Default, onnxruntime_pybind_state.cc:870 CreateExecutionProviderInstance] Failed to create CUDAExecutionProvider. Please reference https://onnxruntime.ai/docs/execution-providers/CUDA-ExecutionProvider.html#requirementsto ensure all dependencies are met.[m
+2025-02-26 14:04:19,282 WETEXT INFO building fst for zh_normalizer ...
+2025-02-26 14:04:19,282 INFO building fst for zh_normalizer ...
+2025-02-26 14:04:51,182 WETEXT INFO done
+2025-02-26 14:04:51,182 INFO done
+2025-02-26 14:04:51,183 WETEXT INFO fst path: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-02-26 14:04:51,183 INFO fst path: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-02-26 14:04:51,183 WETEXT INFO           /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-02-26 14:04:51,183 INFO           /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-02-26 14:04:51,188 WETEXT INFO found existing fst: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-02-26 14:04:51,188 INFO found existing fst: /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-02-26 14:04:51,188 WETEXT INFO                     /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-02-26 14:04:51,188 INFO                     /home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-02-26 14:04:51,188 WETEXT INFO skip building fst for en_normalizer ...
+2025-02-26 14:04:51,188 INFO skip building fst for en_normalizer ...
 /mnt/f/work/story-maker/CosyVoice/cosyvoice/cli/model.py:70: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   self.llm.load_state_dict(torch.load(llm_model, map_location=self.device), strict=True)
 /mnt/f/work/story-maker/CosyVoice/cosyvoice/cli/model.py:72: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
@@ -32,25 +32,16 @@ failed to import ttsfrd, use WeTextProcessing instead
 Downloading Model to directory: /mnt/f/work/story-maker/CosyVoice/pretrained_models/CosyVoice2-0.5B
  * Serving Flask app 'server'
  * Debug mode: off
-2025-02-26 13:27:26,312 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2025-02-26 14:04:55,255 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8000
  * Running on http://192.168.1.3:8000
-2025-02-26 13:27:26,312 INFO [33mPress CTRL+C to quit[0m
-  0%|          | 0/1 [00:00<?, ?it/s]2025-02-26 13:32:05,118 INFO synthesis text 大家都在干什么的，我猜猜，一定在看电视吧。
-2025-02-26 13:32:16,227 INFO yield speech len 4.44, rtf 2.5019601658657864
-100%|██████████| 1/1 [00:12<00:00, 12.60s/it]100%|██████████| 1/1 [00:12<00:00, 12.60s/it]
-2025-02-26 13:32:16,273 ERROR Exception on /get_voice_remote [POST]
-Traceback (most recent call last):
-  File "/home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/ppx/miniconda3/envs/e/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-  File "/mnt/f/work/story-maker/CosyVoice/server.py", line 81, in get_voice_remote
-    @after_this_request
-NameError: name 'after_this_request' is not defined
-2025-02-26 13:32:16,275 INFO 192.168.1.24 - - [26/Feb/2025 13:32:16] "[35m[1mPOST /get_voice_remote HTTP/1.1[0m" 500 -
+2025-02-26 14:04:55,255 INFO [33mPress CTRL+C to quit[0m
+  0%|          | 0/1 [00:00<?, ?it/s]2025-02-26 14:08:02,682 INFO synthesis text 大家都在干什么的，我猜猜，一定在看电视吧。
+2025-02-26 14:08:13,806 INFO yield speech len 4.44, rtf 2.5054991245269775
+100%|██████████| 1/1 [00:12<00:00, 12.64s/it]100%|██████████| 1/1 [00:12<00:00, 12.64s/it]
+2025-02-26 14:08:13,853 INFO 192.168.1.24 - - [26/Feb/2025 14:08:13] "POST /get_voice_remote HTTP/1.1" 200 -
+  0%|          | 0/1 [00:00<?, ?it/s]2025-02-26 14:09:05,540 INFO synthesis text 大家都在干什么的，我猜猜，一定在看电视吧。
+2025-02-26 14:09:17,252 INFO yield speech len 5.16, rtf 2.2696903047635573
+100%|██████████| 1/1 [00:13<00:00, 13.17s/it]100%|██████████| 1/1 [00:13<00:00, 13.17s/it]
+2025-02-26 14:09:17,302 INFO 192.168.1.24 - - [26/Feb/2025 14:09:17] "POST /get_voice_remote HTTP/1.1" 200 -

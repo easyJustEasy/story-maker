@@ -72,19 +72,25 @@ def get_voice_remote():
       tau = (j['tts_speech'].numpy() * (2 ** 15)).astype(np.int16).tobytes()
       tts_audio += tau
     tts_speech = torch.from_numpy(np.array(np.frombuffer(tts_audio, dtype=np.int16))).unsqueeze(dim=0)
-    path = os.path.join("temp",f'instruct_{uuid.uuid1()}.wav')
+    path = os.path.join(f'{current_working_directory}/temp',f'instruct_{uuid.uuid1()}.wav')
     torchaudio.save(path, tts_speech, cosyvoice.sample_rate)
     def generate():
-        with open(path, "rb") as f:
-            yield from f
+        with open(path, 'rb') as f:
+            while True:
+                chunk = f.read(512*1024)  
+                if not chunk:
+                    break
+                yield chunk
+    response = Response(stream_with_context(generate()), mimetype='application/octet-stream')
     
-    @after_this_request
-    def remove_file(response):
+    # 设置一个关闭时的回调，确保文件只在响应结束后才被删除
+    @response.call_on_close
+    def remove_file():
         try:
-            os.remove(path)  # 删除临时文件
-        except Exception as error:
-            app.logger.error("Error removing or closing downloaded file handle", error)
-        return response
-    return Response(generate(), mimetype='application/octet-stream')
+            os.remove(path)
+        except Exception as e:
+            app.logger.error("Error removing file: %s", str(e))
+    
+    return response
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8000, threaded=True)
