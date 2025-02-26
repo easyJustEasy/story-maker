@@ -65,8 +65,8 @@ def get_voice_remote():
     tts_text = request.form.get("tts_text")
     audio = request.form.get("audio")
     # 加载示例音频
-    prompt_speech_16k = load_wav(f'{current_working_directory}/asset/{audio}.wav', 16000)
-    model_output = cosyvoice.inference_instruct2(tts_text,  '希望你以后能够做的比我还好呦。', prompt_speech_16k)
+    prompt_speech_16k_r = load_wav(f'{current_working_directory}/asset/{audio}.wav', 16000)
+    model_output = cosyvoice.inference_instruct2(tts_text,  '希望你以后能够做的比我还好呦。', prompt_speech_16k_r)
     tts_audio = b''
     for i,j in enumerate(model_output):
       tau = (j['tts_speech'].numpy() * (2 ** 15)).astype(np.int16).tobytes()
