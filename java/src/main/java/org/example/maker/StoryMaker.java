@@ -6,9 +6,7 @@ import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.StrUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.example.base.LocalVoiceGenerate;
-import org.example.base.RunPythonScript;
-import org.example.base.TongYiDocGenerate;
+import org.example.base.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +20,8 @@ import java.util.concurrent.*;
 @Slf4j
 public class StoryMaker {
     private ExecutorService executorService = new ThreadPoolExecutor(5, 5, 2, TimeUnit.MINUTES, new LinkedBlockingQueue<>(100), new ThreadPoolExecutor.CallerRunsPolicy());
-    @Autowired
-    private TongYiDocGenerate docGenerate;
+
+    private IDocGenerate docGenerate;
     @Autowired
     private LocalVoiceGenerate localVoiceGenerate;
     @Autowired
@@ -87,8 +85,17 @@ public class StoryMaker {
             目标：根据故事小节描述，写一篇1300字左右的小故事，要求不能脱离整体故事概述的人物设定、故事情节。
             """;
 
+    public IDocGenerate getDocGenerate() {
+        return docGenerate;
+    }
+
+    public void setDocGenerate(IDocGenerate docGenerate) {
+        this.docGenerate = docGenerate;
+    }
+
     @PostConstruct
     public void init() {
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (process != null && process.isAlive()) {
                 long pid = process.pid();
@@ -152,10 +159,9 @@ public class StoryMaker {
 
     }
 
-    public static String generate(String desc, String prompt) throws Exception {
+    public  String generate(String desc, String prompt) throws Exception {
 
-        TongYiDocGenerate tongYiDocGenerate = new TongYiDocGenerate();
-        return tongYiDocGenerate.generate(String.format(everyStoryPromt, desc), "请根据故事小节生成故事内容," + prompt);
+        return docGenerate.generate(String.format(everyStoryPromt, desc), "请根据故事小节生成故事内容," + prompt);
     }
 
     private void generateEverySory(String s, String parentDir) {
