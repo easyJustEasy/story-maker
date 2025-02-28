@@ -66,7 +66,7 @@ def get_voice_remote():
     audio = request.form.get("audio")
     # 加载示例音频
     prompt_speech_16k_r = load_wav(f'{current_working_directory}/asset/{audio}.wav', 16000)
-    model_output = cosyvoice.inference_instruct2(tts_text,  '希望你以后能够做的比我还好呦。', prompt_speech_16k_r)
+    model_output = cosyvoice.inference_instruct2(tts_text,  '请用中文普通话朗读下面的儿童故事，模仿一位温柔且富有表现力的母亲的声音讲述给小朋友听。她的声音应该充满活力，能够激发孩子们的好奇心和想象力。在讲述过程中，请根据不同的角色变换音色，', prompt_speech_16k_r)
     tts_audio = b''
     for i,j in enumerate(model_output):
       tau = (j['tts_speech'].numpy() * (2 ** 15)).astype(np.int16).tobytes()
