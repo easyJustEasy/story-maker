@@ -29,7 +29,7 @@ public class OllamaDeepSeekTextGenerate implements IDocGenerate {
 
         OllamaChatModel chatModel = OllamaChatModel.builder()
                 .ollamaApi(ollamaApi)
-                .defaultOptions(OllamaOptions.builder().model(qwen2532b).temperature(0.6).build())
+                .defaultOptions(OllamaOptions.builder().model(deepseekr17b).temperature(0.6).build())
                 .build();
         Prompt promptData = new Prompt(new SystemMessage(system), new UserMessage(prompt));
 

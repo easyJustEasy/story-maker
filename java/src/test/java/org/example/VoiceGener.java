@@ -76,10 +76,15 @@ public class VoiceGener {
                         怎么样，是不是很贴心呢？
                
                 """;
+        prompt= """
+                        大家都在干什么的，我猜猜，一定在看电视吧
+               
+                """;
                 String name = "voice";
         String path = AppConfig.tempDir()+File.separator+ "voice"+File.separator+name+".wav";
 
-        File file = pythonPostApi.runPythonRemote(prompt, path);
+        File file = pythonPostApi.runPythonRemote(prompt, path,null);
+        System.out.println(file.getAbsolutePath());
 
     }
 }
