@@ -1,57 +1,0 @@
-2025-02-28 15:37:59,757 DEBUG Starting new HTTPS connection (1): www.modelscope.cn:443
-2025-02-28 15:38:00,011 DEBUG https://www.modelscope.cn:443 "GET /api/v1/models/iic/CosyVoice2-0.5B/revisions HTTP/1.1" 200 205
-2025-02-28 15:38:01,147 DEBUG https://www.modelscope.cn:443 "GET /api/v1/models/iic/CosyVoice2-0.5B/repo/files?Revision=master&Recursive=True HTTP/1.1" 200 None
-2025-02-28 15:38:01,153 - modelscope - INFO - Target directory already exists, skipping creation.
-Sliding Window Attention is enabled but not implemented for `sdpa`; unexpected results may be encountered.
-/home/ppx/miniconda3/envs/cosyvoice/lib/python3.10/site-packages/diffusers/models/lora.py:393: FutureWarning: `LoRACompatibleLinear` is deprecated and will be removed in version 1.0.0. Use of `LoRACompatibleLinear` is deprecated. Please switch to PEFT backend by installing PEFT: `pip install peft`.
-  deprecate("LoRACompatibleLinear", "1.0.0", deprecation_message)
-2025-02-28 15:38:23,580 INFO input frame rate=25
-[0;93m2025-02-28 15:38:32.237498102 [W:onnxruntime:, transformer_memcpy.cc:74 ApplyImpl] 8 Memcpy nodes are added to the graph main_graph for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
-[0;93m2025-02-28 15:38:32.243071589 [W:onnxruntime:, session_state.cc:1168 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
-[0;93m2025-02-28 15:38:32.243382031 [W:onnxruntime:, session_state.cc:1170 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
-2025-02-28 15:38:33,169 WETEXT INFO building fst for zh_normalizer ...
-2025-02-28 15:38:33,169 INFO building fst for zh_normalizer ...
-2025-02-28 15:39:07,140 WETEXT INFO done
-2025-02-28 15:39:07,140 INFO done
-2025-02-28 15:39:07,141 WETEXT INFO fst path: /home/ppx/miniconda3/envs/cosyvoice/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
-2025-02-28 15:39:07,141 INFO fst path: /home/ppx/miniconda3/envs/cosyvoice/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
-2025-02-28 15:39:07,141 WETEXT INFO           /home/ppx/miniconda3/envs/cosyvoice/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
-2025-02-28 15:39:07,141 INFO           /home/ppx/miniconda3/envs/cosyvoice/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
-2025-02-28 15:39:07,147 WETEXT INFO found existing fst: /home/ppx/miniconda3/envs/cosyvoice/lib/python3.10/site-packages/tn/en_tn_tagger.fst
-2025-02-28 15:39:07,147 INFO found existing fst: /home/ppx/miniconda3/envs/cosyvoice/lib/python3.10/site-packages/tn/en_tn_tagger.fst
-2025-02-28 15:39:07,148 WETEXT INFO                     /home/ppx/miniconda3/envs/cosyvoice/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
-2025-02-28 15:39:07,148 INFO                     /home/ppx/miniconda3/envs/cosyvoice/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
-2025-02-28 15:39:07,148 WETEXT INFO skip building fst for en_normalizer ...
-2025-02-28 15:39:07,148 INFO skip building fst for en_normalizer ...
-/mnt/d/work/story-maker/CosyVoice/cosyvoice/cli/model.py:70: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  self.llm.load_state_dict(torch.load(llm_model, map_location=self.device), strict=True)
-/mnt/d/work/story-maker/CosyVoice/cosyvoice/cli/model.py:72: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  self.flow.load_state_dict(torch.load(flow_model, map_location=self.device), strict=True)
-/mnt/d/work/story-maker/CosyVoice/cosyvoice/cli/model.py:75: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  hift_state_dict = {k.replace('generator.', ''): v for k, v in torch.load(hift_model, map_location=self.device).items()}
-failed to import ttsfrd, use WeTextProcessing instead
-Downloading Model to directory: /mnt/d/work/story-maker/CosyVoice/pretrained_models/CosyVoice2-0.5B
- * Serving Flask app 'server'
- * Debug mode: off
-2025-02-28 15:39:27,419 INFO [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:8000
- * Running on http://192.168.1.4:8000
-2025-02-28 15:39:27,419 INFO [33mPress CTRL+C to quit[0m
-  0%|          | 0/7 [00:00<?, ?it/s]2025-02-28 15:39:56,547 INFO synthesis text ###第三十四集会发光的鞋子夜晚降临，小镇上灯火通明，但街道上的路灯却显得有些昏暗。飞飞和他的朋友们决定晚上出去探险，但每次出门时，他们总是在黑暗中磕磕绊绊，甚至有一次差点撞到了路边停放的汽车。
-[W228 15:40:21.487091163 NNPACK.cpp:61] Could not initialize NNPACK! Reason: Unsupported hardware.
-2025-02-28 15:40:24,546 INFO yield speech len 24.88, rtf 1.1253975307826445
- 14%|█▍        | 1/7 [00:29<02:58, 29.79s/it]2025-02-28 15:40:25,217 INFO synthesis text 这让他们感到非常困扰。“要是我们能在晚上看得更清楚就好了。”飞飞的朋友小明说。“是，这样我们就能更好地探索这个小镇了。”小红附和道。
-2025-02-28 15:40:41,155 INFO yield speech len 14.44, rtf 1.1037163126831901
- 29%|██▊       | 2/7 [00:46<01:50, 22.03s/it]2025-02-28 15:40:41,645 INFO synthesis text 飞飞听后，心里萌生了一个想法。他回到家中，走进了自己的小小实验室。房间里摆满了各种废旧材料和工具，这些都是他平时收集起来的宝贝。
-2025-02-28 15:40:56,697 INFO yield speech len 13.84, rtf 1.0875599232712234
- 43%|████▎     | 3/7 [01:01<01:16, 19.07s/it]2025-02-28 15:40:57,189 INFO synthesis text 飞飞坐在桌前，开始思考如何解决这个问题。“如果我能发明一双会发光的鞋子，那该多好！”飞飞自言自语道，“这样我们就能在晚上安全地行走了。”
-2025-02-28 15:41:11,683 INFO yield speech len 13.36, rtf 1.0849335058006697
- 57%|█████▋    | 4/7 [01:16<00:52, 17.46s/it]2025-02-28 15:41:12,174 INFO synthesis text 飞飞首先找来了几双旧运动鞋，然后从废弃的电子设备中拆下了LED灯和电池。他将LED灯固定在鞋子的前端和侧面，用导线连接起来。
-2025-02-28 15:41:24,733 INFO yield speech len 11.44, rtf 1.0978233772557933
- 71%|███████▏  | 5/7 [01:29<00:31, 15.87s/it]2025-02-28 15:41:25,223 INFO synthesis text 为了使鞋子能够根据脚步声调节亮度，飞飞还安装了一个声音传感器。当有脚步声时，传感器就会触发LED灯亮起，从而提供足够的光线。
-2025-02-28 15:41:39,322 INFO yield speech len 12.76, rtf 1.104929753605475
- 86%|████████▌ | 6/7 [01:44<00:15, 15.43s/it]2025-02-28 15:41:39,817 INFO synthesis text 经过几个小时的努力，飞飞终于完成了他的发明。他穿上新发明的鞋子，走出家门，邀请朋友们一起来试一试。他们来到小镇的一条偏僻小路上，那里没有路灯，夜色显得格外深沉。“准备好了吗？”飞飞问道。
-2025-02-28 15:41:59,481 INFO yield speech len 18.32, rtf 1.073378545748615
-100%|██████████| 7/7 [02:04<00:00, 16.98s/it]100%|██████████| 7/7 [02:04<00:00, 17.82s/it]
-2025-02-28 15:41:59,601 INFO 192.168.1.24 - - [28/Feb/2025 15:41:59] "POST /get_voice_remote HTTP/1.1" 200 -
